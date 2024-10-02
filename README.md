@@ -1,3 +1,10 @@
+Script using the Mist remote shell to access a Junos Device and retrieve the log entries (from `/var/log/messages*`) matching a specific string.
+
+The Script is using the following Junos commands:
+* `file list /var/log/messages*` to get the list of `messages` files
+* `file show {message_file} | match {log_match_string} | count` on each file to get the number of entries (for validation purpose)
+* `file show {message_file} | match {log_match_string} | no-more` on each file to get the entries (for validation purpose)
+
 ### IMPORTANT NOTE
 this script cannot be run on Windows (work in progress but may never happen)
 
