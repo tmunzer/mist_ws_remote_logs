@@ -1,4 +1,4 @@
-### IMPORTANT NOTE
+### IMPORTANT NOTE
 this script cannot be run on Windows (work in progress but may never happen)
 
 ### Usage:
