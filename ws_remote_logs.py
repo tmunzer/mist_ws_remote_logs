@@ -26,7 +26,7 @@ class MistSocket:
         self.uri = uri
         self.ws = None
         self.timeout = 30
-        self.re_start = r"^mist@\S+> "
+        self.re_start = r"mist@\S+> "
         self.re_end = r"mist@\S+> $"
         self.log_files = []
         self.log_lines = []
@@ -39,7 +39,7 @@ class MistSocket:
             self._count_in_log_files()
             self._find_in_log_files()
             self._exit_shell()
-            print("result ".ljust(80, "."))
+            print(" RESULT ".center(80, "-"))
             for tmp in self.log_lines:
                 print(tmp)
             print(len(self.log_lines))
@@ -97,7 +97,7 @@ class MistSocket:
         for log_file in self.log_files:
             print(f"get count for file \"{log_file['file']}\" ".ljust(80, "."))
             # send data
-            data = f"\00file show {log_file['file']} | match {LOG_MATCH} | count\n"
+            data = f"\00file show {log_file['file']} | match \"{LOG_MATCH}\" | count\n"
             logging.debug(f"file {log_file['file']} - sending:\n{data.replace("\x00", "")}")
             data_byte = bytearray()
             data_byte.extend(map(ord, data))
@@ -131,7 +131,7 @@ class MistSocket:
                 count = 0
                 print(f"get entries file \"{log_file['file']}\" ".ljust(80, "."))
                 # send data
-                req = f"file show {log_file['file']} | match {LOG_MATCH} | no-more"
+                req = f"file show {log_file['file']} | match \"{LOG_MATCH}\" | no-more"
                 data = f"\00{req}\n"
                 logging.debug(f"file {log_file['file']} - sending:\n{data.replace("\x00", "")}")
                 data_byte = bytearray()
@@ -148,7 +148,7 @@ class MistSocket:
                 # process response
                 logging.debug(f"file {log_file['file']} - received:\n{result.replace("\x00", "")}")
                 for tmp in result.replace("\x00", "").split("\r\n"):
-                    if LOG_MATCH in tmp and not re.findall(self.re_start, tmp):
+                    if LOG_MATCH in tmp and not re.findall(self.re_start, tmp, re.ASCII):
                         count += 1
                         self.log_lines.append(tmp)
                 log_file["script_count"] = count
