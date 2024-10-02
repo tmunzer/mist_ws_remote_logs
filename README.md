@@ -5,16 +5,20 @@ The Script is using the following Junos commands:
 * `file show {message_file} | match {log_match_string} | count` on each file to get the number of entries (for validation purpose)
 * `file show {message_file} | match {log_match_string} | no-more` on each file to get the entries (for validation purpose)
 
-### IMPORTANT NOTE
+
+## IMPORTANT NOTE
 this script cannot be run on Windows (work in progress but may never happen)
 
-### Usage:
+
+## Usage
 * install the dependencies with `python3 -m pip install -r requirements.txt`
 * configure the env file (default env file is `./.env`, it's location can be changed in the script itself)
 * run the script with `python3 ./ws_remote_logs.py`
 * check the `ws_remote_logs.txt` to get the results, or `ws_remote_logs.log` to see the script and websocket logs
 
-### ENV File:
+
+## Env File Configuration
+
 
 | property | type | example | description |
 | --- | --- | --- | --- |
