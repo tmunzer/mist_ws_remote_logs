@@ -1,0 +1,5 @@
+python-dotenv
+websocket-client==0.44.0
+sshkeyboard
+python-dotenv
+requests
